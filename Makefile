@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: clwenhaj <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/02/10 14:22:25 by clwenhaj          #+#    #+#              #
+#    Updated: 2026/02/10 14:22:30 by clwenhaj         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = so_long
 
 CC = cc
@@ -10,21 +22,16 @@ MLX_FLAGS	= -L${MLX_DIR} -lmlx -lXext -lX11 -lm -lz
 
 RM = rm -f
 
-# VALGRIND = @valgrind --leak-check=full --show-leak-kinds=all \
---track-origins=yes --quiet --tool=memcheck --keep-debuginfo=yes
-
-VALGRIND = @valgrind --leak-check=full --show-leak-kinds=all \
---track-origins=yes --tool=memcheck --keep-debuginfo=yes
-
 SRCS = so_long.c \
 		parse_map.c \
 		render_map.c \
 		check_map.c \
 		read_map.c \
-		check_rectangle.c \
 		check_walls.c \
 		check_chars.c \
 		flood_fill.c \
+		flood_fill_2.c \
+		free_map.c \
 		init_game.c \
 		init_images.c \
 		key_hook.c \
@@ -63,12 +70,4 @@ fclean: clean
 
 re: fclean all
 
-run:	${NAME}
-	${VALGRIND} ./${NAME} assets/maps/valid/map3.ber
-
-#norm:
-#	norminette ${SRCS} so_long.h
-
-#.PHONY: all clean fclean re valgrind run norm
-
-.PHONY: all clean fclean re valgrind run
+.PHONY: all clean fclean re

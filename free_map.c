@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   free_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clwenhaj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 12:53:31 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/09 18:31:25 by clwenhaj         ###   ########.fr       */
+/*   Created: 2026/02/09 13:20:18 by clwenhaj          #+#    #+#             */
+/*   Updated: 2026/02/09 13:24:50 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_map(t_game *game)
+void	free_map(char **map)
 {
-	if (!game->map || !game->map[0])
-		error_exit(game, "Error\nEmpty map");
-	check_chars(game);
-	check_walls(game);
+	int	i;
+
+	i = 0;
+	if (!map)
+		return ;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }

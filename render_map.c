@@ -6,7 +6,7 @@
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:03:18 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/05 22:26:19 by clwenhaj         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:29:44 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	render_map(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	if (!game || !game->mlx || !game->win)
 		return (0);
 	y = 0;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*   flood_fill_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 12:55:54 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/10 14:13:45 by clwenhaj         ###   ########.fr       */
+/*   Created: 2026/02/10 14:10:47 by clwenhaj          #+#    #+#             */
+/*   Updated: 2026/02/10 14:12:33 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**copy_map(t_game *game)
+char	**copy_map_2(t_game *game)
 {
 	char	**copy;
 	int		i;
@@ -40,25 +40,20 @@ char	**copy_map(t_game *game)
 	return (copy);
 }
 
-static void	flood(char **map, int x, int y, t_game *game)
+static void	flood_2(char **map, int x, int y, t_game *game)
 {
-	if (map[y][x] == 'E')
-	{
-		game->y2 = y;
-		game->x2 = x;
-	}
 	if (x < 0 || y < 0 || x >= game->width || y >= game->height)
 		return ;
-	if (map[y][x] == '1' || map[y][x] == 'V' || map[y][x] == 'E')
+	if (map[y][x] == '1' || map[y][x] == 'V')
 		return ;
 	map[y][x] = 'V';
-	flood(map, x + 1, y, game);
-	flood(map, x - 1, y, game);
-	flood(map, x, y + 1, game);
-	flood(map, x, y - 1, game);
+	flood_2(map, x + 1, y, game);
+	flood_2(map, x - 1, y, game);
+	flood_2(map, x, y + 1, game);
+	flood_2(map, x, y - 1, game);
 }
 
-static int	check_access(char **map)
+static int	check_access_2(char **map)
 {
 	int	x;
 	int	y;
@@ -69,7 +64,7 @@ static int	check_access(char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == 'C')
+			if (map[y][x] == 'E')
 				return (0);
 			x++;
 		}
@@ -78,15 +73,15 @@ static int	check_access(char **map)
 	return (1);
 }
 
-void	flood_fill(t_game *game)
+void	flood_fill_2(t_game *game)
 {
 	char	**map_copy;
 
-	map_copy = copy_map(game);
+	map_copy = copy_map_2(game);
 	if (!map_copy)
 		error_exit(game, "Error\nMalloc failed");
-	flood(map_copy, game->player_x, game->player_y, game);
-	if (!check_access(map_copy))
+	flood_2(map_copy, game->player_x, game->player_y, game);
+	if (!check_access_2(map_copy))
 	{
 		free_map(map_copy);
 		error_exit(game, "Error\nMap is not solvable");

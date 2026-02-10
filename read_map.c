@@ -6,7 +6,7 @@
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:52:05 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/05 23:09:10 by clwenhaj         ###   ########.fr       */
+/*   Updated: 2026/02/09 18:31:50 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,38 +57,44 @@ void	flush_gnl(int fd)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
+	{
 		free(line);
+		line = get_next_line(fd);
+	}
+}
+
+void	init_map(t_game *game)
+{
+	game->lines = 0;
+	game->map = NULL;
 }
 
 char	**read_map(int fd, t_game *game)
 {
-	char	*line;
-	char	**map;
-	int		lines;
-	int		width;
-
-	lines = 0;
-	map = NULL;
-	line = get_next_line(fd);
-	if (!line || ft_strlen(line) == 0)
-		error_exit(game, "Error\nEmpty map");
-	map = append_line(map, line, lines++);
-	if (!map)
-		error_exit(game, "Error\nMalloc failed");
-	width = ft_strlen(map[0]);
-	while ((line = get_next_line(fd)))
+	init_map(game);
+	game->line = get_next_line(fd);
+	if (!game->line || ft_strlen(game->line) == 0)
 	{
-		map = append_line(map, line, lines++);
-		if (!map || (int)ft_strlen(map[lines - 1]) != width)
+		free(game->line);
+		error_exit(game, "Error\nEmpty map");
+	}
+	game->map = append_line(game->map, game->line, game->lines++);
+	if (!game->map)
+		error_exit(game, "Error\nMalloc failed");
+	game->width = ft_strlen(game->map[0]);
+	game->line = get_next_line(fd);
+	while (game->line)
+	{
+		game->map = append_line(game->map, game->line, game->lines++);
+		if (!game->map
+			|| (int)ft_strlen(game->map[game->lines - 1]) != game->width)
 		{
-			free(line);
-			if (map)
-				free_str_arr(map, lines - 1);
 			flush_gnl(fd);
 			error_exit(game, "Error\nMap is not rectangular");
-			return (NULL);
 		}
+		game->line = get_next_line(fd);
 	}
-	return (map);
+	return (game->map);
 }

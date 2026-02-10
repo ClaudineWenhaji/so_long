@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_rectangle.c                                  :+:      :+:    :+:   */
+/*   free_str_arr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 12:53:52 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/05 20:24:59 by clwenhaj         ###   ########.fr       */
+/*   Created: 2026/02/09 15:24:44 by clwenhaj          #+#    #+#             */
+/*   Updated: 2026/02/09 15:24:47 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "get_next_line.h"
 
-void	check_rectangle(t_game *game)
+void	free_str_arr(char **map, int lines)
 {
 	int	i;
 
 	i = 0;
-	while (game->map[i])
+	if (!map)
+		return ;
+	while (i < lines)
+		free(map[i++]);
+	free(map);
+}
+
+void	flush_gnl(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
 	{
-		if ((int)ft_strlen(game->map[i]) != game->width)
-			error_exit("Error\nMap is not rectangle");
-		i++;
+		free(line);
+		line = get_next_line(fd);
 	}
 }

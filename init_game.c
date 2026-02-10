@@ -6,7 +6,7 @@
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:50:59 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/05 23:06:59 by clwenhaj         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:54:33 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_game(t_game *game)
 		error_exit(game, "Error\nWindow creation failed");
 	init_images(game);
 	if (!game->img_wall || !game->img_floor || !game->img_player
-	|| !game->img_collect || !game->img_exit)
+		|| !game->img_collect || !game->img_exit)
 		error_exit(game, "Error\nFailed to load images");
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_hook, game);
 	mlx_hook(game->win, DestroyNotify, 0, close_game, game);

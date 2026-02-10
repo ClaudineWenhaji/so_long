@@ -6,7 +6,7 @@
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:57:33 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/05 22:43:01 by clwenhaj         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:25:40 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ void	init_images(t_game *game)
 			game->mlx, "assets/sprites/collectible.xpm", &width, &height);
 	if (!game->img_wall || !game->img_floor || !game->img_player
 		|| !game->img_exit || !game->img_collect)
-	
 		error_exit(game, "Error\nFailed to load images");
 }

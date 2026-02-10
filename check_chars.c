@@ -6,7 +6,7 @@
 /*   By: clwenhaj <clwenhaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:53:12 by clwenhaj          #+#    #+#             */
-/*   Updated: 2026/02/05 20:25:46 by clwenhaj         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:48:31 by clwenhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check(t_game *game, char c, int x, int y)
 	else if (c == 'C')
 		game->collectibles++;
 	else if (c != '0' && c != '1')
-			error_exit("Error\nInvalid character in map");
+		error_exit(game, "Error\nInvalid character in map");
 }
 
 void	check_chars(t_game *game)
@@ -48,5 +48,5 @@ void	check_chars(t_game *game)
 		y++;
 	}
 	if (game->p_count != 1 || game->e_count != 1 || game->collectibles < 1)
-		error_exit("Error\nInvalid number of P, E or C");
+		error_exit(game, "Error\nInvalid number of P, E or C");
 }
